@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane id="AnchorPane" prefHeight="451.0" prefWidth="536.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.LoginWindowController">
    <children>
       <StackPane layoutX="91.0" layoutY="65.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,12 +24,12 @@
                         <Image url="@../images/EALogo.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField promptText="Username">
+                  <JFXTextField fx:id="txtEmail" promptText="Username">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXPasswordField promptText="Password">
+                  <JFXPasswordField fx:id="txtPassword" promptText="Password">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -51,7 +50,7 @@
                   </HBox>
                   <StackPane prefHeight="72.0" prefWidth="200.0">
                      <children>
-                        <JFXButton id="btnLogin" prefWidth="250.4" ripplerFill="WHITE" text="Log in" />
+                        <JFXButton id="btnLogin" fx:id="btnLogin" onAction="#clickLogin" prefWidth="250.4" ripplerFill="WHITE" text="Log in" />
                      </children>
                   </StackPane>
                </children>
