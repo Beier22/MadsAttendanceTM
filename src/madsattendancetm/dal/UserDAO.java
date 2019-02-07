@@ -1,5 +1,3 @@
-
-
 package madsattendancetm.dal;
 
 
@@ -13,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class UserDAO {
@@ -29,10 +29,9 @@ public class UserDAO {
         ds.setPortNumber(((1433)));
     }
     
-        public List<User> getAllUsers() throws SQLServerException, SQLException {
+        public List<User> getAllUsers() {
         List<User> allUsers = new ArrayList<>();
-        try (Connection con = ds.getConnection()) 
-        {
+        try (Connection con = ds.getConnection()) {
             String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User]";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
@@ -40,33 +39,41 @@ public class UserDAO {
                 User u = new User(rs.getInt("id"),  rs.getString("name"), rs.getString("email"), rs.getInt("isTeacher"), rs.getString("password"));
                 allUsers.add(u);
             }
-            return allUsers; 
-        }}
-
-
-    public void login(String email, String date) throws SQLServerException, SQLException
-        {
-            String sql = "UPDATE [alexAttendance].[dbo].[DateAttendance] SET attendance=1 WHERE email=? AND date=?";
-        try (Connection con = ds.getConnection()) {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setString(2, date);
-            ps.addBatch();
-            ps.executeBatch();
+        }   catch (SQLException ex) 
+            {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+        return allUsers; 
+    }
+
+
+    public void login(String email, String date) {
+    String sql = "UPDATE [alexAttendance].[dbo].[DateAttendance] SET attendance=1 WHERE email=? AND date=?";
+    try (Connection con = ds.getConnection()) {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, email);
+        ps.setString(2, date);
+        ps.addBatch();
+        ps.executeBatch();
+    } catch (SQLException ex) 
+        {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
     
-    public void unattendance(String email1, String date1, String email, String date) throws SQLServerException, SQLException
+    public void unattendance(String email1, String date1, String email, String date) {
+    String sql = "IF EXISTS (SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email=? AND date=?)) BEGIN WAITFOR delay '00:00:00' END ELSE INSERT INTO [alexAttendance].[dbo].[DateAttendance] (email, date, attendance) VALUES (?, ?, 0)";;
+    try (Connection con = ds.getConnection()) {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, email1);
+        ps.setString(2, date1);
+        ps.setString(3, email);
+        ps.setString(4, date);
+        ps.addBatch();
+        ps.executeBatch();
+    } catch (SQLException ex) 
         {
-            String sql = "IF EXISTS (SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email=? AND date=?)) BEGIN WAITFOR delay '00:00:00' END ELSE INSERT INTO [alexAttendance].[dbo].[DateAttendance] (email, date, attendance) VALUES (?, ?, 0)";;
-        try (Connection con = ds.getConnection()) {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, email1);
-            ps.setString(2, date1);
-            ps.setString(3, email);
-            ps.setString(4, date);
-            ps.addBatch();
-            ps.executeBatch();
-            }
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 }

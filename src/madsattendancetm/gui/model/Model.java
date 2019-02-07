@@ -1,6 +1,4 @@
-
-
-package madsattendancetm.model;
+package madsattendancetm.gui.model;
 
 import java.sql.SQLException;
 import java.util.List;
