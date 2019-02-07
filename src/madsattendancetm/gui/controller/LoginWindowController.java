@@ -82,7 +82,7 @@ public class LoginWindowController implements Initializable {
                 model.login(txtEmail.getText(), date());
         try
         {
-            Parent root = FXMLLoader.load(getClass().getResource("/attendanceautomation/gui/view/StudentView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
             Scene currentScene = btnLogin.getScene();
             Stage currentStage = (Stage) btnLogin.getScene().getWindow();
             currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
@@ -93,7 +93,7 @@ public class LoginWindowController implements Initializable {
         {
         try
         {
-            Parent root = FXMLLoader.load(getClass().getResource("/attendanceautomation/gui/view/TeacherView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
             Scene currentScene = btnLogin.getScene();
             Stage currentStage = (Stage) btnLogin.getScene().getWindow();
             currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
