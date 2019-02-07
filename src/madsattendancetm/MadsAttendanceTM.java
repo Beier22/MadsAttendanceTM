@@ -27,7 +27,7 @@ public class MadsAttendanceTM extends Application {
         
         //stage.initStyle(StageStyle.UNDECORATED);
         
-        Image logo = new Image("file:C:\\Users\\mads_\\Desktop\\Uni 2.0\\Semester 2\\Netbeans\\Projects\\MadsAttendanceTM\\src\\madsattendancetm\\gui\\images\\Icon.png");
+        Image logo = new Image("/madsattendancetm/gui/images/Icon.png");
         stage.getIcons().add(logo);
         stage.setMinHeight(400);
         stage.setMinWidth(400);
