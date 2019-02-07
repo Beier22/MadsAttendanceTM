@@ -19,12 +19,12 @@ import javafx.scene.control.Label;
 public class LoginWindowController implements Initializable {
     
     @FXML
-    private Label label;
+    private Label label1;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
-        label.setText("Hello World!");
+        label1.setText("Hello World!");
     }
     
     @Override
