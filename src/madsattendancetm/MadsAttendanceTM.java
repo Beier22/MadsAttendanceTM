@@ -9,7 +9,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -23,9 +25,14 @@ public class MadsAttendanceTM extends Application {
         
         Scene scene = new Scene(root);
         
-        stage.setScene(scene);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        
+        Image logo = new Image("file:C:\\Users\\mads_\\Desktop\\Uni 2.0\\Semester 2\\Netbeans\\Projects\\MadsAttendanceTM\\src\\madsattendancetm\\gui\\images\\Icon.png");
+        stage.getIcons().add(logo);
         stage.setMinHeight(400);
         stage.setMinWidth(400);
+        
+        stage.setScene(scene);
         stage.show();
     }
 
