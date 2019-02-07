@@ -28,7 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import madsattendancetm.be.User;
-import madsattendancetm.model.Model;
+import madsattendancetm.gui.model.Model;
 
 /**
  *
@@ -38,6 +38,7 @@ public class LoginWindowController implements Initializable {
     
     Model model = new Model();
     List<User> userList;
+    
     @FXML
     private JFXTextField txtEmail;
     @FXML
@@ -47,60 +48,48 @@ public class LoginWindowController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            userList = model.getAllUsers();
-            for (User user : userList) {
-                try {
-                    if (user.getIsTeacher()==0)
-                    {
-                        model.unattendance(user.getEmail(), date(), user.getEmail(), date());
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(LoginWindowController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } catch (SQLException ex) {
+    try {
+        userList = model.getAllUsers();
+            for (User user : userList) 
+                if (user.getIsTeacher()==0)
+                    model.unattendance(user.getEmail(), date(), user.getEmail(), date());
+        } catch (SQLException ex) 
+        {
             Logger.getLogger(LoginWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
     
     
     
-    private String date()
-    {
+    private String date() {
         Date date1 = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
         return dateFormat.format(date1);
     }
     
     @FXML
-    private void clickLogin(ActionEvent event) throws SQLException 
-    {
-        for (User user : userList) {
+    private void clickLogin(ActionEvent event) throws SQLException {
+    try {
+        for (User user : userList) 
+        {
             if (user.getEmail().equals(txtEmail.getText()) && user.getPassword().equals(txtPassword.getText()) && user.getIsTeacher()==0)
             {
                 model.login(txtEmail.getText(), date());
-        try
-        {
-            Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
-            Scene currentScene = btnLogin.getScene();
-            Stage currentStage = (Stage) btnLogin.getScene().getWindow();
-            currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
-        }
-        catch (IOException e){}
+                Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
+                Scene currentScene = btnLogin.getScene();
+                Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+                currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
             }
             else if (user.getEmail().equals(txtEmail.getText()) && user.getPassword().equals(txtPassword.getText()) && user.getIsTeacher()==1)
-        {
-        try
-        {
-            Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
-            Scene currentScene = btnLogin.getScene();
-            Stage currentStage = (Stage) btnLogin.getScene().getWindow();
-            currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+            {
+                Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
+                Scene currentScene = btnLogin.getScene();
+                Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+                currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+            }    
         }
-        catch (IOException e)
-        {
-            
-        }}}
-}
+    }   catch(IOException e) {
+        System.out.println("IOException occured"); }
+    }
 }
