@@ -16,6 +16,7 @@ import madsattendancetm.dal.UserDAO;
 public class Manager implements IManager{
 
     private UserDAO userdao;
+    
     @Override
     public List<User> getAllUsers() {
         return userdao.getAllUsers();

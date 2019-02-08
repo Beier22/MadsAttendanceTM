@@ -50,6 +50,7 @@ public class LoginWindowController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    /*
     try {
         userList = model.getAllUsers();
             for (User user : userList) 
@@ -59,6 +60,7 @@ public class LoginWindowController implements Initializable {
         {
             Logger.getLogger(LoginWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    */
     }    
     
     

@@ -76,4 +76,40 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public int attendanceData(String email)
+    {
+        int n = 0;
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User] WHERE (email = '"+email+"' AND attendance = 1)";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while (rs.next()) { 
+                n++;
+            }
+        }   catch (SQLException ex) 
+            {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        System.out.println(n);
+        return n;
+    }
+    
+    public int absenseData(String email)
+    {
+        int n = 0;
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User] WHERE (email = '"+email+"' AND attendance = 0)";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while (rs.next()) { 
+                n++;
+            }
+        }   catch (SQLException ex) 
+            {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        System.out.println(n);
+        return n;
+    }
 }

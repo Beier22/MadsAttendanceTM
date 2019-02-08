@@ -29,20 +29,23 @@ public class StudentViewController implements Initializable {
     
     @FXML
     private PieChart pie;
-    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data("attendant", attendanceData(this.email, this.pass)), new PieChart.Data("absense", absenseData(this.email, this.pass)));
+    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+            new PieChart.Data("attendance", attendanceData(this.email)),
+            new PieChart.Data("j", absenseData(this.email)));
     
-    
+
+            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pie.setData(pieChartData);
     }    
     
-    public int attendanceData(String email, String pass) {
-        return model.attendanceData(email, pass);
+    public int attendanceData(String email) {
+        return model.attendanceData(email);
     }
     
-    public int absenseData(String email, String pass){
-        return model.absenseData(email, pass);
+    public int absenseData(String email){
+        return model.absenseData(email);
     }
     
 }
