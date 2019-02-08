@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.TeacherViewController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="madsattendancetm.gui.controller.TeacherViewController">
+   <children>
+      <VBox layoutX="90.0" layoutY="65.0" prefHeight="279.0" prefWidth="408.0">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <StackPane prefWidth="200.0">
+                     <children>
+                        <JFXComboBox fx:id="cbxClassList" />
+                     </children>
+                  </StackPane>
+                  <StackPane prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lblTeacherName" text="Label" />
+                     </children>
+                  </StackPane>
+                  <StackPane prefWidth="200.0">
+                     <children>
+                        <JFXDatePicker />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <JFXListView fx:id="lstStudents" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

@@ -5,9 +5,13 @@
  */
 package madsattendancetm.gui.controller;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXListView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -15,6 +19,13 @@ import javafx.fxml.Initializable;
  * @author alex
  */
 public class TeacherViewController implements Initializable {
+
+    @FXML
+    private JFXComboBox<?> cbxClassList;
+    @FXML
+    private Label lblTeacherName;
+    @FXML
+    private JFXListView<?> lstStudents;
 
     /**
      * Initializes the controller class.
