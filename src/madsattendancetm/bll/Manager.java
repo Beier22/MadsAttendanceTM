@@ -5,10 +5,30 @@
  */
 package madsattendancetm.bll;
 
+import java.util.List;
+import madsattendancetm.be.User;
+import madsattendancetm.dal.UserDAO;
+
 /**
  *
  * @author mads_
  */
-public class Manager {
+public class Manager implements IManager{
+
+    private UserDAO userdao;
+    @Override
+    public List<User> getAllUsers() {
+        return userdao.getAllUsers();
+    }
+
+    @Override
+    public void login(String email, String date) {
+        userdao.login(email, date);
+    }
+
+    @Override
+    public void unattendance(String email1, String date1, String email, String date) {
+        userdao.unattendance(email1, date1, email, date);
+    }
     
 }

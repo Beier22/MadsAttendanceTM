@@ -14,5 +14,7 @@ import madsattendancetm.be.User;
  */
 public interface IManager {
     public List<User> getAllUsers();
+    public void login(String email, String date);
+    public void unattendance(String email1, String date1, String email, String date);
     
 }
