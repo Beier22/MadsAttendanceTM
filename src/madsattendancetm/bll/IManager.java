@@ -5,10 +5,14 @@
  */
 package madsattendancetm.bll;
 
+import java.util.List;
+import madsattendancetm.be.User;
+
 /**
  *
  * @author mads_
  */
 public interface IManager {
+    public List<User> getAllUsers();
     
 }

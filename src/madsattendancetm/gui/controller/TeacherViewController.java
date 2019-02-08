@@ -9,9 +9,11 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import madsattendancetm.be.User;
 
 /**
  * FXML Controller class
@@ -21,18 +23,23 @@ import javafx.scene.control.Label;
 public class TeacherViewController implements Initializable {
 
     @FXML
-    private JFXComboBox<?> cbxClassList;
+    private JFXComboBox<User> cbxClassList;
     @FXML
     private Label lblTeacherName;
     @FXML
-    private JFXListView<?> lstStudents;
+    private JFXListView<User> lstStudents;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ObservableList<User> students = null;
+        //for (Object object : col) {
+            
+        //}
     }    
+    
+    
     
 }
