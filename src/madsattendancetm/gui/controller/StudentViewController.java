@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
+import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
 
 /**
@@ -21,36 +22,33 @@ import madsattendancetm.gui.model.Model;
  */
 public class StudentViewController implements Initializable {
 
-    LoginWindowController loginpage = new LoginWindowController();
+    User user;
     Model model = new Model();
     
-    String email = loginpage.email;
-    String pass = loginpage.pass;
+
     
     @FXML
     private PieChart pie;
 
-    
-
-            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         set();
+        
     }    
     
     public int attendanceData(String email) {
         return model.attendanceData(email);
     }
     
-    public int absenseData(String email){
-        return model.absenseData(email);
+    public int absenceData(String email){
+        return model.absenceData(email);
     }
     
     public void set() {
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("attendance", attendanceData(this.email)),
-            new PieChart.Data("absense", absenseData(this.email)));
-    pie.setData(pieChartData);
+            new PieChart.Data("attendance", attendanceData("alex@uldahl.dk")),
+            new PieChart.Data("absence", absenceData("alex@uldahl.dk")));
+            pie.setData(pieChartData);
     }
     
 }

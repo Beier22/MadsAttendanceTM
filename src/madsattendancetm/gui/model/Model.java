@@ -12,7 +12,6 @@ import madsattendancetm.dal.UserDAO;
 
 
 public class Model {
-
     
     Manager manager = new Manager();
     UserDAO dao = new UserDAO();
@@ -38,8 +37,8 @@ public class Model {
         return dao.attendanceData(email);
     }
     
-    public int absenseData(String email){
-        return dao.absenseData(email);
+    public int absenceData(String email){
+        return dao.absenceData(email);
     }
 
 

@@ -40,8 +40,8 @@ public class Manager implements IManager {
         return userdao.attendanceData(email);
     }
 
-    public int absenseData(String email) {
-        return userdao.absenseData(email);
+    public int absenceData(String email) {
+        return userdao.absenceData(email);
     }
 
     
