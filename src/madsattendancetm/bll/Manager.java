@@ -30,5 +30,18 @@ public class Manager implements IManager{
     public void unattendance(String email1, String date1, String email, String date) {
         userdao.unattendance(email1, date1, email, date);
     }
+
+    @Override
+    public int attendanceData(String email) {
+        return userdao.attendanceData(email);
+    }
+
+    @Override
+    public int absenseData(String email) {
+        return userdao.absenseData(email);
+    }
+
+    
+    
     
 }

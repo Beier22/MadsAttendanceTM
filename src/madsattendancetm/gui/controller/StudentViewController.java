@@ -27,12 +27,9 @@ public class StudentViewController implements Initializable {
     String email = loginpage.email;
     String pass = loginpage.pass;
     
-    private int n;
-    private int m;
-    
     @FXML
     private PieChart pie;
-    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data("attendant", n), new PieChart.Data("absent", m));
+    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data("attendant", attendanceData(this.email, this.pass)), new PieChart.Data("absense", absenseData(this.email, this.pass)));
     
     
     @Override
@@ -40,8 +37,12 @@ public class StudentViewController implements Initializable {
         pie.setData(pieChartData);
     }    
     
-    public void getData(String loginEmail, String loginPass){
-        //model.getData(this.email, this.pass);
+    public int attendanceData(String email, String pass) {
+        return model.attendanceData(email, pass);
+    }
+    
+    public int absenseData(String email, String pass){
+        return model.absenseData(email, pass);
     }
     
 }
