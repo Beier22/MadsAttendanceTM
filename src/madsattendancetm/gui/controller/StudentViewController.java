@@ -7,7 +7,12 @@ package madsattendancetm.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
+import madsattendancetm.gui.model.Model;
 
 /**
  * FXML Controller class
@@ -16,12 +21,27 @@ import javafx.fxml.Initializable;
  */
 public class StudentViewController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    LoginWindowController loginpage = new LoginWindowController();
+    Model model = new Model();
+    
+    String email = loginpage.email;
+    String pass = loginpage.pass;
+    
+    private int n;
+    private int m;
+    
+    @FXML
+    private PieChart pie;
+    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(new PieChart.Data("attendant", n), new PieChart.Data("absent", m));
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        pie.setData(pieChartData);
     }    
+    
+    public void getData(String loginEmail, String loginPass){
+        //model.getData(this.email, this.pass);
+    }
     
 }
