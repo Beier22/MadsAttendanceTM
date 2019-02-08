@@ -7,38 +7,39 @@ import java.util.logging.Logger;
 import madsattendancetm.be.User;
 import madsattendancetm.bll.IManager;
 import madsattendancetm.bll.Manager;
+import madsattendancetm.dal.UserDAO;
 
 
 
 public class Model {
 
     
-    IManager manager = new Manager();
-    String str;
+    Manager manager = new Manager();
+    UserDAO dao = new UserDAO();
     
     List<User> allUsers;
     
     public List<User> getAllUsers() throws SQLException {
-        allUsers = manager.getAllUsers();
+        allUsers = dao.getAllUsers();
         return allUsers;
     }
 
     public void login(String email, String date) throws SQLException
     {
-        manager.login(email, date);
+        dao.login(email, date);
     }
     
     public void unattendance(String email1, String date1, String email, String date) throws SQLException
     {
-        manager.unattendance(email1, date1, email, date);
+        dao.unattendance(email1, date1, email, date);
     }
     
     public int attendanceData(String email) {
-        return manager.attendanceData(email);
+        return dao.attendanceData(email);
     }
     
     public int absenseData(String email){
-        return manager.absenseData(email);
+        return dao.absenseData(email);
     }
 
 

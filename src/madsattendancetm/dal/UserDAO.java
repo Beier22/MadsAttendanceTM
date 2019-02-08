@@ -79,9 +79,10 @@ public class UserDAO {
     
     public int attendanceData(String email)
     {
+        System.out.println(email);
         int n = 0;
         try (Connection con = ds.getConnection()) {
-            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User] WHERE (email = '"+email+"' AND attendance = 1)";
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email = 'alex@uldahl.dk' AND attendance = 1)";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) { 
@@ -97,9 +98,10 @@ public class UserDAO {
     
     public int absenseData(String email)
     {
+        System.out.println(email);
         int n = 0;
         try (Connection con = ds.getConnection()) {
-            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User] WHERE (email = '"+email+"' AND attendance = 0)";
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email = 'alex@uldahl.dk' AND attendance = 0)";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) { 

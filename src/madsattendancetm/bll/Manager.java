@@ -13,31 +13,33 @@ import madsattendancetm.dal.UserDAO;
  *
  * @author mads_
  */
-public class Manager implements IManager{
+public class Manager implements IManager {
 
     private UserDAO userdao;
+    List<User> allUsers;
     
-    @Override
+    
+
     public List<User> getAllUsers() {
-        return userdao.getAllUsers();
+        allUsers = userdao.getAllUsers();
+        return allUsers;
     }
 
-    @Override
+
     public void login(String email, String date) {
         userdao.login(email, date);
     }
 
-    @Override
+
     public void unattendance(String email1, String date1, String email, String date) {
         userdao.unattendance(email1, date1, email, date);
     }
 
-    @Override
+
     public int attendanceData(String email) {
         return userdao.attendanceData(email);
     }
 
-    @Override
     public int absenseData(String email) {
         return userdao.absenseData(email);
     }
