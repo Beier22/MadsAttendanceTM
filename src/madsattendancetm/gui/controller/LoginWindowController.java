@@ -38,6 +38,8 @@ public class LoginWindowController implements Initializable {
     
     Model model = new Model();
     List<User> userList;
+    String email;
+    String pass;
     
     @FXML
     private JFXTextField txtEmail;
@@ -75,6 +77,8 @@ public class LoginWindowController implements Initializable {
         {
             if (user.getEmail().equals(txtEmail.getText()) && user.getPassword().equals(txtPassword.getText()) && user.getIsTeacher()==0)
             {
+                email = txtEmail.getText();
+                pass = txtPassword.getText();
                 model.login(txtEmail.getText(), date());
                 Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
                 Scene currentScene = btnLogin.getScene();
@@ -83,6 +87,8 @@ public class LoginWindowController implements Initializable {
             }
             else if (user.getEmail().equals(txtEmail.getText()) && user.getPassword().equals(txtPassword.getText()) && user.getIsTeacher()==1)
             {
+                email = txtEmail.getText();
+                pass = txtPassword.getText();
                 Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
                 Scene currentScene = btnLogin.getScene();
                 Stage currentStage = (Stage) btnLogin.getScene().getWindow();
