@@ -12,11 +12,10 @@ import madsattendancetm.dal.UserDAO;
 
 
 public class Model {
+    private UserDAO dao = new UserDAO();
+    private Manager manager = new Manager();
     
-    Manager manager = new Manager();
-    UserDAO dao = new UserDAO();
-    
-    List<User> allUsers;
+    private List<User> allUsers;
     
     public List<User> getAllUsers() throws SQLException {
         allUsers = dao.getAllUsers();
@@ -28,18 +27,25 @@ public class Model {
         dao.login(email, date);
     }
     
-    public void unattendance(String email1, String date1, String email, String date) throws SQLException
+    public void unattendance(String date) throws SQLException
     {
-        dao.unattendance(email1, date1, email, date);
+        dao.unattendance(date);
     }
     
     public int attendanceData(String email) {
         return dao.attendanceData(email);
     }
     
-    public int absenceData(String email){
+    public int absenceData(String email) {
         return dao.absenceData(email);
     }
 
+    public int studentLogon(String email, String password) {
+        return dao.studentLogon(email, password);
+    }
+    
+    public int teacherLogon(String email, String passord) {
+        return dao.teacherLogon(email, passord);
+    }
 
 }

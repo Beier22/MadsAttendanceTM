@@ -60,23 +60,19 @@ public class UserDAO {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void unattendance(String email1, String date1, String email, String date) {
-    String sql = "IF EXISTS (SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email=? AND date=?)) BEGIN WAITFOR delay '00:00:00' END ELSE INSERT INTO [alexAttendance].[dbo].[DateAttendance] (email, date, attendance) VALUES (?, ?, 0)";;
+
+    public void unattendance(String date) {
+    String sql = "INSERT INTO [alexAttendance].dbo.DateAttendance (email, date, attendance) SELECT [User].email, ?, 0 FROM [User] WHERE [User].isTeacher=0";
     try (Connection con = ds.getConnection()) {
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, email1);
-        ps.setString(2, date1);
-        ps.setString(3, email);
-        ps.setString(4, date);
+        ps.setString(1, date);
         ps.addBatch();
         ps.executeBatch();
     } catch (SQLException ex) 
         {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("unattendance taken");
         }
     }
-    
     public int attendanceData(String email)
     {
         System.out.println(email);
@@ -113,5 +109,45 @@ public class UserDAO {
             }
         System.out.println(n);
         return n;
+    }
+    
+    public int studentLogon(String email, String password)
+    {
+        int n = 0;
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User] WHERE email = '"+email+"' AND password = '"+password+"' AND isTeacher = 0";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while (rs.next()) { 
+                n++;
+            }
+        }   catch (SQLException ex) 
+            {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        if (n == 1)
+            return n;
+        else
+            return -1;
+    }
+    
+    public int teacherLogon(String email, String password)
+    {
+        int n = 0;
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[User] WHERE email = '"+email+"' AND password = '"+password+"' AND isTeacher = 1";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while (rs.next()) { 
+                n++;
+            }
+        }   catch (SQLException ex) 
+            {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        if (n == 1)
+            return n;
+        else
+            return -1;
     }
 }

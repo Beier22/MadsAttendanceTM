@@ -8,8 +8,13 @@ package madsattendancetm.gui.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,69 +35,55 @@ import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
 
-/**
- *
- * @author mads_
- */
+
 public class LoginWindowController implements Initializable {
     
-    Model model = new Model();
-    List<User> userList;
+    private Model model = new Model();
     
-    @FXML
-    private JFXTextField txtEmail;
-    @FXML
-    private JFXPasswordField txtPassword;
-    @FXML
-    private JFXButton btnLogin;
+    @FXML private JFXTextField txtEmail;
+    @FXML private JFXPasswordField txtPassword;
+    @FXML private JFXButton btnLogin;
+    
+    private File file = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentuser.txt");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
-    try {
-        userList = model.getAllUsers();
-            for (User user : userList) 
-                if (user.getIsTeacher()==0)
-                    model.unattendance(user.getEmail(), date(), user.getEmail(), date());
-        } catch (SQLException ex) 
-        {
+
+        try {
+            model.unattendance(date());
+        } catch (SQLException ex) {
             Logger.getLogger(LoginWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }    
-    
-    
     
     private String date() {
         Date date1 = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
         return dateFormat.format(date1);
     }
     
     @FXML
-    private void clickLogin(ActionEvent event) throws SQLException {
-    try {
-        for (User user : userList) 
-        {
-            if (user.getEmail().equals(txtEmail.getText()) && user.getPassword().equals(txtPassword.getText()) && user.getIsTeacher()==0)
+    public void clickLogin(ActionEvent event) throws SQLException, IOException {
+            if ((model.studentLogon(txtEmail.getText(), txtPassword.getText()))==1)
             {
+                byte[] strToBytes = txtEmail.getText().getBytes();
+                Files.write(file.toPath(), strToBytes);
                 model.login(txtEmail.getText(), date());
                 Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
                 Scene currentScene = btnLogin.getScene();
                 Stage currentStage = (Stage) btnLogin.getScene().getWindow();
                 currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
             }
-            else if (user.getEmail().equals(txtEmail.getText()) && user.getPassword().equals(txtPassword.getText()) && user.getIsTeacher()==1)
+            else if ((model.teacherLogon(txtEmail.getText(), txtPassword.getText()))==1)
             {
-                user.setEmail(txtEmail.getText());
+                File file = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentuser.txt");
+                byte[] strToBytes = txtEmail.getText().getBytes();
+                Files.write(file.toPath(), strToBytes);
                 Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
                 Scene currentScene = btnLogin.getScene();
                 Stage currentStage = (Stage) btnLogin.getScene().getWindow();
                 currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
-            }    
-        }
-    }   catch(IOException e) {
-        System.out.println("IOException occured"); }
+            }
     }
 }

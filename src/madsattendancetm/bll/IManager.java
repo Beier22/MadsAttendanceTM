@@ -5,6 +5,7 @@
  */
 package madsattendancetm.bll;
 
+import java.sql.SQLException;
 import java.util.List;
 import madsattendancetm.be.User;
 import madsattendancetm.dal.UserDAO;
@@ -16,10 +17,11 @@ import madsattendancetm.dal.UserDAO;
 
 public interface IManager {
     
-    public List<User> getAllUsers();
-    public void login(String email, String date);
-    public void unattendance(String email1, String date1, String email, String date);
+    public List<User> getAllUsers() throws SQLException;
+    public void login(String email, String date) throws SQLException;
+    public void unattendance(String date) throws SQLException;
     public int attendanceData(String email);
     public int absenceData(String email);
-
+    public int studentLogon(String email, String password);
+    public int teacherLogon(String email, String password);
 }

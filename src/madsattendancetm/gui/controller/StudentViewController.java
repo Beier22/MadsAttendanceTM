@@ -5,35 +5,55 @@
  */
 package madsattendancetm.gui.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
 
-/**
- * FXML Controller class
- *
- * @author alex
- */
+
 public class StudentViewController implements Initializable {
 
-    User user;
-    Model model = new Model();
-    
+    private Model model = new Model();
+    private String email;
+    private FileReader fr = null;
+    private File f = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentUser.txt");
 
-    
-    @FXML
-    private PieChart pie;
+    @FXML private PieChart pie;
+    @FXML private Button btnBack;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        set();
+        try {
+            fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line = null;
+            while ((line = br.readLine())!=null) email = line;
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        set();
     }    
     
     public int attendanceData(String email) {
@@ -44,11 +64,24 @@ public class StudentViewController implements Initializable {
         return model.absenceData(email);
     }
     
-    public void set() {
+    private void set() {
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("attendance", attendanceData("alex@uldahl.dk")),
-            new PieChart.Data("absence", absenceData("alex@uldahl.dk")));
+            new PieChart.Data("attendance", attendanceData(email)),
+            new PieChart.Data("absence", absenceData(email)));
             pie.setData(pieChartData);
     }
+
+    @FXML
+    private void handleBtnBack(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/LoginWindow.fxml"));
+            Scene currentScene = btnBack.getScene();
+            Stage currentStage = (Stage) btnBack.getScene().getWindow();
+            currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+        } catch (IOException ex) {
+            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
+
 }

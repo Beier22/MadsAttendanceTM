@@ -3,11 +3,11 @@ package madsattendancetm.be;
 
 public class User {
     
-    int id;
-    String name;
-    String email;
-    int isTeacher;
-    String password;
+    private int id;
+    private String name;
+    private String email;
+    private int isTeacher;
+    private String password;
 
     public User(int id, String name, String email, int isTeacher, String password) {
         this.id = id;

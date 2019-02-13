@@ -5,6 +5,7 @@
  */
 package madsattendancetm.bll;
 
+import java.sql.SQLException;
 import java.util.List;
 import madsattendancetm.be.User;
 import madsattendancetm.dal.UserDAO;
@@ -15,34 +16,46 @@ import madsattendancetm.dal.UserDAO;
  */
 public class Manager implements IManager {
 
-    private UserDAO userdao;
+    private UserDAO dao;
     List<User> allUsers;
-    
-    
 
-    public List<User> getAllUsers() {
-        allUsers = userdao.getAllUsers();
+    @Override
+    public List<User> getAllUsers() throws SQLException {
+        allUsers = dao.getAllUsers();
         return allUsers;
     }
-
-
-    public void login(String email, String date) {
-        userdao.login(email, date);
+    
+    @Override
+    public void login(String email, String date) throws SQLException
+    {
+        dao.login(email, date);
     }
-
-
-    public void unattendance(String email1, String date1, String email, String date) {
-        userdao.unattendance(email1, date1, email, date);
+    
+    @Override
+    public void unattendance(String date) throws SQLException
+    {
+        dao.unattendance(date);
     }
-
-
+    
+    @Override
     public int attendanceData(String email) {
-        return userdao.attendanceData(email);
+        return dao.attendanceData(email);
     }
-
+    
+    @Override
     public int absenceData(String email) {
-        return userdao.absenceData(email);
+        return dao.absenceData(email);
     }
+    
+    @Override
+    public int studentLogon(String email, String password) {
+        return dao.studentLogon(email, password);
+    }
+    
+    @Override
+    public int teacherLogon(String email, String passord) {
+        return dao.teacherLogon(email, passord);
+    }    
 
     
     
