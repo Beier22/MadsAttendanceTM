@@ -24,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
@@ -39,7 +40,7 @@ public class TeacherViewController implements Initializable {
     
     @FXML private JFXComboBox<User> cbxClassList;
     @FXML private Label lblTeacherName;
-    @FXML private JFXListView<User> lstStudents;
+    @FXML private ListView<User> lstStudents;
     @FXML private Button btnBack;
     @FXML
     private JFXDatePicker datePicker;
@@ -62,6 +63,7 @@ public class TeacherViewController implements Initializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.println(dtf.format(datePicker.getValue()));
         
+        lstStudents.getSelectionModel().select(0);
         System.out.println(model.attendanceDay("alex@uldahl.dk", "2019-02-14"));
     }    
 
@@ -79,7 +81,13 @@ public class TeacherViewController implements Initializable {
     
     public void setAttendance(String date)
     {
-        
+        for (int i = 0; i < lstStudents.getItems().size() ; i++) {
+            lstStudents.getSelectionModel().select(i);
+            User temp = lstStudents.getSelectionModel().getSelectedItem();
+            if(model.attendanceDay(temp.getEmail(), date) == true){
+                //Hmmmmmm
+            }
+        }
     }
     
     

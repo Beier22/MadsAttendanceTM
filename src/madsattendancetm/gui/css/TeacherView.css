@@ -8,7 +8,10 @@ and open the template in the editor.
     Author     : mads_
 */
 
-#lstStudents .list-cell {
+.list-cell {
 -fx-background-color: red;
 -fx-text-fill: black;
+}
+.list-cell:focused{
+    -fx-background-color: blue;
 }
