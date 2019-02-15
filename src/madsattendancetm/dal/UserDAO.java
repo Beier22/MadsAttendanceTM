@@ -148,4 +148,20 @@ public class UserDAO {
         else
             return -1;
     }
+    
+    public boolean attendanceDay(String email, String date)
+    {
+        boolean attendance = false;
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT attendance FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email = '" + email + "' AND date = '" + date + "')";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while(rs.next()){
+                attendance = rs.getBoolean("attendance");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return attendance;
+    }
 }

@@ -47,5 +47,9 @@ public class Model {
     public int teacherLogon(String email, String passord) {
         return dao.teacherLogon(email, passord);
     }
+    
+    public boolean attendanceDay(String email, String date){
+        return dao.attendanceDay(email, date);
+    }
 
 }

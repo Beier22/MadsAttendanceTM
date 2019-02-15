@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.TeacherViewController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/TeacherView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.TeacherViewController">
    <children>
       <VBox layoutX="90.0" layoutY="65.0" prefHeight="279.0" prefWidth="408.0">
          <children>
@@ -28,12 +28,12 @@
                   </StackPane>
                   <StackPane prefWidth="200.0">
                      <children>
-                        <JFXDatePicker />
+                        <JFXDatePicker fx:id="datePicker" />
                      </children>
                   </StackPane>
                </children>
             </HBox>
-            <JFXListView fx:id="lstStudents" />
+            <JFXListView id="lstStudents" fx:id="lstStudents" />
          </children>
       </VBox>
       <Button fx:id="btnBack" layoutX="280.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleBtnBack" text="Back" />
