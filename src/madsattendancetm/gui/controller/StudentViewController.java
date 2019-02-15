@@ -41,7 +41,7 @@ public class StudentViewController implements Initializable {
     private Model model = new Model();
     private String email;
     private FileReader fr = null;
-    private File f = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentUser.txt");
+    private File f = new File("..\\madsattendancetm\\currentuser.txt");
     
     @FXML private PieChart pie;
     @FXML private Button btnBack;

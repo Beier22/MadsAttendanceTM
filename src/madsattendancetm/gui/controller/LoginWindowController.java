@@ -46,7 +46,7 @@ public class LoginWindowController implements Initializable {
     @FXML private JFXButton btnLogin;
     @FXML private Text txt;
     
-    private File file = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentuser.txt");
+    private File file = new File("..\\madsattendancetm\\currentuser.txt");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -79,7 +79,7 @@ public class LoginWindowController implements Initializable {
             }
             else if ((model.teacherLogon(txtEmail.getText(), txtPassword.getText()))==1)
             {
-                File file = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentuser.txt");
+                File file = new File("..\\madsattendancetm\\currentuser.txt");
                 byte[] strToBytes = txtEmail.getText().getBytes();
                 Files.write(file.toPath(), strToBytes);
                 Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
