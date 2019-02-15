@@ -32,11 +32,11 @@ public class Model {
         dao.unattendance(date);
     }
     
-    public int attendanceData(String email) {
+    public List attendanceData(String email) {
         return dao.attendanceData(email);
     }
     
-    public int absenceData(String email) {
+    public List absenceData(String email) {
         return dao.absenceData(email);
     }
 

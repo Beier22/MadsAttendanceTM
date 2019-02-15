@@ -31,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
@@ -43,6 +44,7 @@ public class LoginWindowController implements Initializable {
     @FXML private JFXTextField txtEmail;
     @FXML private JFXPasswordField txtPassword;
     @FXML private JFXButton btnLogin;
+    @FXML private Text txt;
     
     private File file = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentuser.txt");
     
@@ -64,7 +66,7 @@ public class LoginWindowController implements Initializable {
     }
     
     @FXML
-    public void clickLogin(ActionEvent event) throws SQLException, IOException {
+    private void clickLogin(ActionEvent event) throws SQLException, IOException {
             if ((model.studentLogon(txtEmail.getText(), txtPassword.getText()))==1)
             {
                 byte[] strToBytes = txtEmail.getText().getBytes();
@@ -84,6 +86,10 @@ public class LoginWindowController implements Initializable {
                 Scene currentScene = btnLogin.getScene();
                 Stage currentStage = (Stage) btnLogin.getScene().getWindow();
                 currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+            }
+            else
+            {
+                txt.setText("Invalid username or password");
             }
     }
 }

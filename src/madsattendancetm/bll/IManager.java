@@ -17,11 +17,5 @@ import madsattendancetm.dal.UserDAO;
 
 public interface IManager {
     
-    public List<User> getAllUsers() throws SQLException;
-    public void login(String email, String date) throws SQLException;
-    public void unattendance(String date) throws SQLException;
-    public int attendanceData(String email);
-    public int absenceData(String email);
-    public int studentLogon(String email, String password);
-    public int teacherLogon(String email, String password);
+
 }

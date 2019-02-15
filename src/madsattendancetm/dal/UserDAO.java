@@ -73,42 +73,40 @@ public class UserDAO {
             System.out.println("unattendance taken");
         }
     }
-    public int attendanceData(String email)
+    public List attendanceData(String email)
     {
-        System.out.println(email);
-        int n = 0;
+        List<String> days = new ArrayList<>();
         try (Connection con = ds.getConnection()) {
             String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email = '"+email+"' AND attendance = 1)";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) { 
-                n++;
+                days.add(rs.getString("date"));
             }
         }   catch (SQLException ex) 
             {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        System.out.println(n);
-        return n;
+        return days;
     }
     
-    public int absenceData(String email)
+    public List absenceData(String email)
     {
-        System.out.println(email);
-        int n = 0;
+        List<String> days = new ArrayList<>();
         try (Connection con = ds.getConnection()) {
             String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email = '"+email+"' AND attendance = 0)";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) { 
-                n++;
+                days.add(rs.getString("date"));
             }
         }   catch (SQLException ex) 
             {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        System.out.println(n);
-        return n;
+        for (String day : days) {
+        }
+        return days;
     }
     
     public int studentLogon(String email, String password)

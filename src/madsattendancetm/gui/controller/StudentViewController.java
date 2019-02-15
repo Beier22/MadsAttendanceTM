@@ -12,6 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,6 +29,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
@@ -37,9 +42,11 @@ public class StudentViewController implements Initializable {
     private String email;
     private FileReader fr = null;
     private File f = new File("C:\\Users\\alex\\Downloads\\2018-SCO1-Examples-from-class-master\\CodingBatProjects\\MadsAttendanceTM\\src\\madsattendancetm\\currentUser.txt");
-
+    
     @FXML private PieChart pie;
     @FXML private Button btnBack;
+    @FXML private Text txtWelcome;
+    @FXML private ListView<String> listView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,22 +59,29 @@ public class StudentViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        txtWelcome.setText("Welcome, you are now attendant");
         set();
+        List<String> days = FXCollections.observableArrayList(absenceData(email));
+        Collections.reverse(days);
+        listView.setItems(FXCollections.observableArrayList(days));
     }    
-    
-    public int attendanceData(String email) {
-        return model.attendanceData(email);
+
+    private List attendanceData(String email) {
+        List<String> days = model.attendanceData(email);
+
+        return days;
     }
     
-    public int absenceData(String email){
-        return model.absenceData(email);
+    private List absenceData(String email){
+        List<String> days = model.absenceData(email);
+
+        return days;
     }
     
     private void set() {
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("attendance", attendanceData(email)),
-            new PieChart.Data("absence", absenceData(email)));
+            new PieChart.Data("attendance", attendanceData(email).size()),
+            new PieChart.Data("absence", absenceData(email).size()));
             pie.setData(pieChartData);
     }
 

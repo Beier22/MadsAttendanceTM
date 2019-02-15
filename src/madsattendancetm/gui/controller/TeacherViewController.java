@@ -34,19 +34,22 @@ import madsattendancetm.gui.model.Model;
  */
 public class TeacherViewController implements Initializable {
     
-    private UserDAO userdao = new UserDAO();
     private Model model = new Model();
     
     @FXML private JFXComboBox<User> cbxClassList;
     @FXML private Label lblTeacherName;
-    @FXML private JFXListView<User> lstStudents;
+    @FXML private JFXListView<String> lstStudents;
     @FXML private Button btnBack;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        for (User u : userdao.getAllUsers()) {
-            if(u.getIsTeacher() == 0)
-                lstStudents.getItems().add(u);
+        try {
+            for (User u : model.getAllUsers()) {
+                if(u.getIsTeacher() == 0)
+                    lstStudents.getItems().add(u.getName());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }    

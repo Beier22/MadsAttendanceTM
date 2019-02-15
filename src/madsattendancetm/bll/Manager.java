@@ -16,48 +16,5 @@ import madsattendancetm.dal.UserDAO;
  */
 public class Manager implements IManager {
 
-    private UserDAO dao;
-    List<User> allUsers;
 
-    @Override
-    public List<User> getAllUsers() throws SQLException {
-        allUsers = dao.getAllUsers();
-        return allUsers;
-    }
-    
-    @Override
-    public void login(String email, String date) throws SQLException
-    {
-        dao.login(email, date);
-    }
-    
-    @Override
-    public void unattendance(String date) throws SQLException
-    {
-        dao.unattendance(date);
-    }
-    
-    @Override
-    public int attendanceData(String email) {
-        return dao.attendanceData(email);
-    }
-    
-    @Override
-    public int absenceData(String email) {
-        return dao.absenceData(email);
-    }
-    
-    @Override
-    public int studentLogon(String email, String password) {
-        return dao.studentLogon(email, password);
-    }
-    
-    @Override
-    public int teacherLogon(String email, String passord) {
-        return dao.teacherLogon(email, passord);
-    }    
-
-    
-    
-    
 }

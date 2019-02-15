@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="451.0" prefWidth="536.0" stylesheets="@../css/Style.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.LoginWindowController">
    <children>
@@ -55,6 +56,11 @@
                   </StackPane>
                </children>
             </VBox>
+            <Text fx:id="txt" strokeType="OUTSIDE" strokeWidth="0.0" StackPane.alignment="BOTTOM_CENTER">
+               <StackPane.margin>
+                  <Insets bottom="50.0" />
+               </StackPane.margin>
+            </Text>
          </children>
       </StackPane>
       <StackPane layoutX="168.0" layoutY="405.0" prefHeight="0.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
