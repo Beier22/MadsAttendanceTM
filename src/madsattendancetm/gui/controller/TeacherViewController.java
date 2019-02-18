@@ -42,8 +42,7 @@ public class TeacherViewController implements Initializable {
     @FXML private Label lblTeacherName;
     @FXML private ListView<User> lstStudents;
     @FXML private Button btnBack;
-    @FXML
-    private JFXDatePicker datePicker;
+    @FXML private JFXDatePicker datePicker;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
