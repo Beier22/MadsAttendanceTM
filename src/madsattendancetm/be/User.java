@@ -1,17 +1,20 @@
 package madsattendancetm.be;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 
 public class User {
     
     private int id;
-    private String name;
+    private StringProperty name = new SimpleStringProperty();
     private String email;
     private int isTeacher;
     private String password;
 
     public User(int id, String name, String email, int isTeacher, String password) {
         this.id = id;
-        this.name = name;
+        this.name.set(name);
         this.email = email;
         this.isTeacher = isTeacher;
         this.password = password;
@@ -21,7 +24,7 @@ public class User {
     
     @Override
     public String toString() {
-        return name;
+        return name.get();
     }
    
     
@@ -34,11 +37,11 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public String getEmail() {
@@ -65,5 +68,7 @@ public class User {
         this.password = password;
     }
 
-
+    public StringProperty nameProperty(){
+        return name;
+    }
 }

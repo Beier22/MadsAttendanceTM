@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
@@ -40,30 +44,36 @@ public class TeacherViewController implements Initializable {
     
     @FXML private JFXComboBox<User> cbxClassList;
     @FXML private Label lblTeacherName;
-    @FXML private ListView<User> lstStudents;
+    @FXML private TableView<User> lstStudents;
     @FXML private Button btnBack;
     @FXML private JFXDatePicker datePicker;
+    @FXML
+    private TableColumn<User, String> colName;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
+        colName.setCellValueFactory(cell->cell.getValue().nameProperty());
+                
         try {
+            ArrayList<User> allStudents = null;
             for (User u : model.getAllUsers()) {
                 if(u.getIsTeacher() == 0)
                     lstStudents.getItems().add(u);
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        /*
        	LocalDate localDate = LocalDate.now();
         datePicker.setValue(localDate);
         
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.println(dtf.format(datePicker.getValue()));
-        
-        lstStudents.getSelectionModel().select(0);
-        System.out.println(model.attendanceDay("alex@uldahl.dk", "2019-02-14"));
+        //setAttendance("2019-02-15");
+        //lstStudents.getSelectionModel().select(0);
+        System.out.println(model.attendanceDay("alex@uldahl.dk", "2019-02-15"));*/
     }    
 
     @FXML
@@ -81,11 +91,12 @@ public class TeacherViewController implements Initializable {
     public void setAttendance(String date)
     {
         for (int i = 0; i < lstStudents.getItems().size() ; i++) {
-            lstStudents.getSelectionModel().select(i);
+            /*lstStudents.getSelectionModel().select(i);
             User temp = lstStudents.getSelectionModel().getSelectedItem();
+            lstStudents.setStyle(model.attendanceDay(temp.getEmail(), date) == true ? "-fx-background-color: green;" : "-fx-background-color: black;");
             if(model.attendanceDay(temp.getEmail(), date) == true){
-                //Hmmmmmm
-            }
+                lstStudents.getSelectionModel().getSelectedIndex();
+            }*/
         }
     }
     
