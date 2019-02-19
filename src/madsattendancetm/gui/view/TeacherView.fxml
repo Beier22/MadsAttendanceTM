@@ -34,8 +34,21 @@
                </children>
             </HBox>
             <ListView fx:id="lstStudents" prefHeight="239.0" prefWidth="408.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="500.0">
+                     <children>
+                        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnBack" text="Back" />
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="500.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="More Info" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
          </children>
       </VBox>
-      <Button fx:id="btnBack" layoutX="280.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleBtnBack" text="Back" />
    </children>
 </AnchorPane>
