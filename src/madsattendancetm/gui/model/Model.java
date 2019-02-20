@@ -1,9 +1,13 @@
 package madsattendancetm.gui.model;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import madsattendancetm.be.User;
 import madsattendancetm.bll.IManager;
 import madsattendancetm.bll.Manager;
@@ -48,8 +52,11 @@ public class Model {
         return dao.teacherLogon(email, passord);
     }
     
-    public boolean attendanceDay(String email, String date){
+    public String attendanceDay(String email, String date) {
         return dao.attendanceDay(email, date);
+    }
+    public HashMap att(String date) {
+        return dao.att(date);
     }
 
 }

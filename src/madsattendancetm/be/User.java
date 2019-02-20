@@ -2,6 +2,7 @@ package madsattendancetm.be;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import madsattendancetm.dal.UserDAO;
 
 
 public class User {
@@ -20,14 +21,13 @@ public class User {
         this.password = password;
     }
 
-    
+    UserDAO dao = new UserDAO();
     
     @Override
     public String toString() {
-        return name.get();
+        return email;
     }
    
-    
     public int getId() {
         return id;
     }
@@ -71,4 +71,10 @@ public class User {
     public StringProperty nameProperty(){
         return name;
     }
+
+    
+
+
+    
+    
 }

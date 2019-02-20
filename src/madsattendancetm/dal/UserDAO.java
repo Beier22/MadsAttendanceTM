@@ -10,9 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.util.Pair;
 
 
 public class UserDAO {
@@ -149,19 +154,37 @@ public class UserDAO {
             return -1;
     }
     
-    public boolean attendanceDay(String email, String date)
+    public String attendanceDay(String email, String date)
     {
-        boolean attendance = false;
+        int n = -1;
         try (Connection con = ds.getConnection()) {
             String sqlStatement = "SELECT attendance FROM [alexAttendance].[dbo].[DateAttendance] WHERE (email = '" + email + "' AND date = '" + date + "')";
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while(rs.next()){
-                attendance = rs.getBoolean("attendance");
+                n = rs.getInt("attendance");
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return attendance;
+        String m = n+"";
+        return m;
     }
+    
+    public HashMap att(String date)
+    {
+        Map <String, Integer> yada = new HashMap<>();
+        try (Connection con = ds.getConnection()) {
+            String sql = "SELECT [dbo].DateAttendance.email, [dbo].DateAttendance.attendance FROM [alexAttendance].[dbo].[DateAttendance] WHERE date = '"+date+"'";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()) {
+                yada.put(rs.getString(1), rs.getInt(2));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (HashMap) yada;
+    }
+    
 }
