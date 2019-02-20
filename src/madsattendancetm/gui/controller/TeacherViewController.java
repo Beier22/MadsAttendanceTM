@@ -57,52 +57,19 @@ public class TeacherViewController implements Initializable {
     
     private Model model = new Model();
     
-    
-    @FXML private JFXComboBox<User> cbxClassList;
-    @FXML private ListView<String> lstStudents;
+    @FXML private JFXComboBox<User> pickTeacher;
     @FXML private Button btnBack;
     @FXML private Button btnMoreInfo;
-    @FXML
-    private TextField dateField;
-    @FXML
-    private Button searchDate;
+    
+    @FXML private TextField dateField;
+    @FXML private Button searchDate;
 
+    @FXML private ListView<String> lstStudents;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb){   
-
-        
-        /*
-        for (User user : obsList) {
-            lstStudents.getItems().add(user.toString() + "             ATTENDANT = "+model.attendanceDay(user.toString(), date()));
-        }
-        */
-        Date date1 = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateField.setText(date());
-        
         setValues(date());
-        
-
-
-        
-        /*
-        studentNameCol.setCellValueFactory(cell->cell.getValue().nameProperty());
-        
-        emailCol.setCellValueFactory(cell->cell.getValue().emailProperty());
-*/
-        
-        //attendanceCol.setCellValueFactory(cell->cell.getValue().attendanceProperty(email(),dateFormat.format(date1)));
-
-        
-        /*
-       	LocalDate localDate = LocalDate.now();
-        datePicker.setValue(localDate);
-        
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        System.out.println(dtf.format(datePicker.getValue()));
-        //setAttendance("2019-02-15");
-        //lstStudents.getSelectionModel().select(0);
-        System.out.println(model.attendanceDay("alex@uldahl.dk", "2019-02-15"));*/
     }    
 
     private void setValues(String date) {
@@ -143,46 +110,9 @@ public class TeacherViewController implements Initializable {
         }
     }
     
-    /*
-    
-    private String email() {
-        TablePosition pos = lstStudents.getSelectionModel().getSelectedCells().get(0);
-        emailCol = pos.getTableColumn();
-        String data = (String)emailCol.getCellObservableValue(3).toString();
-        String ret = data.substring(data.indexOf("[value: ")+8,data.indexOf("]"));
-        return ret;
-    }
-
-    @FXML
-    private void handleyada(ActionEvent event) {
-                TablePosition pos = lstStudents.getSelectionModel().getSelectedCells().get(0);
-        int row = pos.getRow();
-        emailCol = pos.getTableColumn();
-        String data = (String) emailCol.getCellObservableValue(row).toString();
-
-        int k = data.indexOf(": ");
-        //String ret = data.substring(k+2,data.length()-1);
-        System.out.println(data);
-        
-        String ret = data.substring(data.indexOf("[value: ")+8,data.indexOf("]"));
-        Date date1 = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(ret);
-        System.out.println(model.attendanceDay(ret, dateFormat.format(date1)));
-    }
-    
-    */
-
-    @FXML
-    private void handleyada(ActionEvent event) {
-    }
-
     @FXML
     private void handleSearchDate(ActionEvent event) {
         setValues(dateField.getText());
     }
-
-
-
-
+    
 }

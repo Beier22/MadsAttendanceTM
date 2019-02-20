@@ -42,7 +42,7 @@
                   </StackPane>
                   <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="500.0">
                      <children>
-                        <Button fx:id="btnMoreInfo" mnemonicParsing="false" onAction="#handleyada" text="More Info" />
+                        <Button fx:id="btnMoreInfo" mnemonicParsing="false" text="More Info" />
                      </children>
                   </StackPane>
                </children>
