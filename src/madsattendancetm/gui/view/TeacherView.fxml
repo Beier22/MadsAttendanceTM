@@ -22,12 +22,12 @@
                   </StackPane>
                   <StackPane prefHeight="25.0" prefWidth="169.0">
                      <children>
-                        <JFXComboBox fx:id="menu" prefHeight="25.0" prefWidth="154.0" />
+                        <JFXComboBox fx:id="menu" onAction="#handleMenu" prefHeight="25.0" prefWidth="154.0" />
                      </children>
                   </StackPane>
                   <StackPane>
                      <children>
-                        <JFXDatePicker fx:id="datePicker" onAction="#pickDate" />
+                        <JFXDatePicker fx:id="datePicker" editable="false" onAction="#pickDate" />
                      </children>
                   </StackPane>
                </children>

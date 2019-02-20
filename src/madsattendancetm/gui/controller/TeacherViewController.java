@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,26 +63,35 @@ public class TeacherViewController implements Initializable {
     
     @FXML private JFXButton btnBack;
     @FXML private JFXButton btnMoreInfo;
-    
-    private JFXTextField dateField;
 
     @FXML private JFXListView<String> lstStudents;
     
     @FXML private JFXComboBox<String> pickTeacher;
     @FXML private JFXComboBox<String> menu;
-    @FXML
-    private JFXDatePicker datePicker;
+    @FXML private JFXDatePicker datePicker;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){   
-        LocalDate localDate = LocalDate.now();
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        localDate.format(dateFormat);
-        datePicker.setValue(localDate);
-        setValues(localDate.toString());
+        
         menu.getItems().addAll("Class attendance", "Summarized attendance", "Student summary", "Student requests");
         menu.setValue("Class attendance");
-    }    
+        
+        
+        
+        if(menu.getSelectionModel().isSelected(0))
+        {
+            setValues(date());
+        }
+        
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        System.out.println(dayOfWeek-1);
+        
+        
+    }
+    
 
     private void setValues(String date) {
         HashMap<String, Integer> yada = model.att(date);
@@ -104,9 +114,11 @@ public class TeacherViewController implements Initializable {
     }
     
     private String date() {
-        Date date1 = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(date1);
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        localDate.format(dateFormat);
+        datePicker.setValue(localDate);
+        return localDate.toString();
     }
     
     @FXML
@@ -120,10 +132,6 @@ public class TeacherViewController implements Initializable {
             Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void handleSearchDate(ActionEvent event) {
-        setValues(dateField.getText());
-    }
 
     @FXML
     private void handleBtnMoreInfo(ActionEvent event) {
@@ -131,8 +139,23 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void pickDate(ActionEvent event) {
-        setValues(datePicker.getValue().toString());
-        System.out.println("Hello");
+        if(menu.getSelectionModel().isSelected(0))
+        {
+            lstStudents.getItems().clear();
+            setValues(datePicker.getValue().toString());
+        }
+    }
+
+    @FXML
+    private void handleMenu(ActionEvent event) {
+        if(menu.getSelectionModel().isSelected(0))
+        {
+            setValues(date());
+        }
+        else
+        {
+            lstStudents.getItems().clear();
+        }
     }
     
 }
