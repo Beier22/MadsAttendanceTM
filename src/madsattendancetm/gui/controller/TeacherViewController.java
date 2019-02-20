@@ -5,9 +5,11 @@
  */
 package madsattendancetm.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -35,6 +37,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListCell;
@@ -57,19 +60,23 @@ public class TeacherViewController implements Initializable {
     
     private Model model = new Model();
     
-    @FXML private JFXComboBox<User> pickTeacher;
-    @FXML private Button btnBack;
-    @FXML private Button btnMoreInfo;
+    @FXML private JFXButton btnBack;
+    @FXML private JFXButton btnMoreInfo;
     
-    @FXML private TextField dateField;
-    @FXML private Button searchDate;
+    @FXML private JFXTextField dateField;
+    @FXML private JFXButton searchDate;
 
-    @FXML private ListView<String> lstStudents;
+    @FXML private JFXListView<String> lstStudents;
+    
+    @FXML private JFXComboBox<String> pickTeacher;
+    @FXML private JFXComboBox<String> menu;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){   
         dateField.setText(date());
         setValues(date());
+        menu.getItems().addAll("Class attendance", "Summarized attendance", "Student summary", "Student requests");
+        menu.setValue("Class attendance");
     }    
 
     private void setValues(String date) {
@@ -113,6 +120,10 @@ public class TeacherViewController implements Initializable {
     @FXML
     private void handleSearchDate(ActionEvent event) {
         setValues(dateField.getText());
+    }
+
+    @FXML
+    private void handleBtnMoreInfo(ActionEvent event) {
     }
     
 }

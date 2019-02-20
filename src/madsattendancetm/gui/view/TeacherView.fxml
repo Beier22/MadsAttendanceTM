@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -11,38 +11,43 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/TeacherView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.TeacherViewController">
    <children>
-      <VBox layoutX="90.0" layoutY="65.0" prefHeight="279.0" prefWidth="408.0">
+      <VBox layoutX="90.0" layoutY="40.0" prefHeight="333.0" prefWidth="408.0">
          <children>
-            <HBox prefHeight="40.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="461.0">
                <children>
-                  <StackPane prefHeight="25.0" prefWidth="115.0">
+                  <JFXComboBox fx:id="pickTeacher" prefHeight="25.0" prefWidth="89.0" promptText="Class" />
+                  <StackPane prefHeight="25.0" prefWidth="169.0">
                      <children>
-                        <JFXComboBox fx:id="cbxClassList" promptText="Pick Teacher" />
+                        <JFXComboBox fx:id="menu" prefHeight="25.0" prefWidth="154.0" />
                      </children>
                   </StackPane>
-                  <StackPane alignment="BOTTOM_RIGHT" prefWidth="200.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="176.0">
                      <children>
-                        <Button fx:id="searchDate" mnemonicParsing="false" onAction="#handleSearchDate" prefHeight="25.0" prefWidth="88.0" text="Search Date" />
+                        <JFXTextField fx:id="dateField" prefHeight="25.0" prefWidth="78.0" />
+                        <StackPane prefHeight="25.0" prefWidth="90.0">
+                           <children>
+                              <JFXButton fx:id="searchDate" onAction="#handleSearchDate" prefHeight="25.0" prefWidth="100.0" text="Search Date" />
+                           </children>
+                        </StackPane>
                      </children>
-                  </StackPane>
-                  <TextField fx:id="dateField" prefHeight="25.0" prefWidth="129.0" />
+                  </HBox>
                </children>
             </HBox>
-            <HBox prefHeight="194.0" prefWidth="408.0">
+            <HBox prefHeight="258.0" prefWidth="408.0">
                <children>
-                  <ListView fx:id="lstStudents" nodeOrientation="RIGHT_TO_LEFT" prefHeight="174.0" prefWidth="411.0" />
+                  <JFXListView fx:id="lstStudents" nodeOrientation="RIGHT_TO_LEFT" prefHeight="232.0" prefWidth="408.0" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="51.0" prefWidth="408.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="500.0">
                      <children>
-                        <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnBack" text="Back" />
+                        <JFXButton fx:id="btnBack" onAction="#handleBtnBack" text="Back" />
                      </children>
                   </StackPane>
                   <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="500.0">
                      <children>
-                        <Button fx:id="btnMoreInfo" mnemonicParsing="false" text="More Info" />
+                        <JFXButton fx:id="btnMoreInfo" onAction="#handleBtnMoreInfo" text="More Info" />
                      </children>
                   </StackPane>
                </children>
