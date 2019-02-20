@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/TeacherView.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="madsattendancetm.gui.controller.TeacherViewController">
    <children>
-      <VBox layoutX="90.0" layoutY="40.0" prefHeight="333.0" prefWidth="408.0">
+      <VBox layoutX="90.0" layoutY="40.0" prefHeight="333.0" prefWidth="408.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0">
          <children>
             <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="461.0">
                <children>
@@ -33,11 +33,7 @@
                   </HBox>
                </children>
             </HBox>
-            <HBox prefHeight="258.0" prefWidth="408.0">
-               <children>
-                  <JFXListView fx:id="lstStudents" nodeOrientation="RIGHT_TO_LEFT" prefHeight="232.0" prefWidth="408.0" />
-               </children>
-            </HBox>
+            <JFXListView fx:id="lstStudents" nodeOrientation="RIGHT_TO_LEFT" prefHeight="232.0" prefWidth="408.0" />
             <HBox prefHeight="51.0" prefWidth="408.0">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="500.0">

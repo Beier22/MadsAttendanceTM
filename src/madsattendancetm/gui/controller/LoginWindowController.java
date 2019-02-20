@@ -72,20 +72,31 @@ public class LoginWindowController implements Initializable {
                 byte[] strToBytes = txtEmail.getText().getBytes();
                 Files.write(file.toPath(), strToBytes);
                 model.login(txtEmail.getText(), date());
-                Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
+                
+                /*Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
                 Scene currentScene = btnLogin.getScene();
                 Stage currentStage = (Stage) btnLogin.getScene().getWindow();
-                currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+                currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));*/
+                
+                Stage st = (Stage) btnLogin.getScene().getWindow();
+                st.close();
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
+                stage.setScene(new Scene(loader.load()));
+                stage.show();
             }
             else if ((model.teacherLogon(txtEmail.getText(), txtPassword.getText()))==1)
             {
                 File file = new File("..\\madsattendancetm\\currentuser.txt");
                 byte[] strToBytes = txtEmail.getText().getBytes();
                 Files.write(file.toPath(), strToBytes);
-                Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
-                Scene currentScene = btnLogin.getScene();
-                Stage currentStage = (Stage) btnLogin.getScene().getWindow();
-                currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+                
+                Stage st = (Stage) btnLogin.getScene().getWindow();
+                st.close();
+                Stage stage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
+                stage.setScene(new Scene(loader.load()));
+                stage.show();
             }
             else
             {
