@@ -63,18 +63,22 @@ public class TeacherViewController implements Initializable {
     @FXML private JFXButton btnBack;
     @FXML private JFXButton btnMoreInfo;
     
-    @FXML private JFXTextField dateField;
-    @FXML private JFXButton searchDate;
+    private JFXTextField dateField;
 
     @FXML private JFXListView<String> lstStudents;
     
     @FXML private JFXComboBox<String> pickTeacher;
     @FXML private JFXComboBox<String> menu;
+    @FXML
+    private JFXDatePicker datePicker;
     
     @Override
     public void initialize(URL url, ResourceBundle rb){   
-        dateField.setText(date());
-        setValues(date());
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        localDate.format(dateFormat);
+        datePicker.setValue(localDate);
+        setValues(localDate.toString());
         menu.getItems().addAll("Class attendance", "Summarized attendance", "Student summary", "Student requests");
         menu.setValue("Class attendance");
     }    
@@ -117,13 +121,18 @@ public class TeacherViewController implements Initializable {
         }
     }
     
-    @FXML
     private void handleSearchDate(ActionEvent event) {
         setValues(dateField.getText());
     }
 
     @FXML
     private void handleBtnMoreInfo(ActionEvent event) {
+    }
+
+    @FXML
+    private void pickDate(ActionEvent event) {
+        setValues(datePicker.getValue().toString());
+        System.out.println("Hello");
     }
     
 }
