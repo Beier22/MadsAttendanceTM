@@ -185,4 +185,17 @@ public class UserDAO {
         return (HashMap) yada;
     }
     
+    public HashMap summarizedAttendance()
+    {
+        ArrayList<Integer> array = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+        array.add(3);
+        array.add(4);
+        String m = array.toString();
+        String n = "rhello";
+        map.put(n, m);
+        System.out.println(map);
+        return (HashMap) map;
+    }
+    
 }

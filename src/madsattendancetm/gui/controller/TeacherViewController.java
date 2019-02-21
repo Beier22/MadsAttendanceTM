@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,6 +89,15 @@ public class TeacherViewController implements Initializable {
         c.setTime(date);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         System.out.println(dayOfWeek-1);
+        
+                ArrayList<Integer> array = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+        array.add(3);
+        array.add(4);
+        String m = array.toString();
+        String n = "rhello";
+        map.put(n, m);
+        System.out.println(map);
         
         
     }
