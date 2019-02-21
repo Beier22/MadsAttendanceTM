@@ -33,7 +33,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import madsattendancetm.be.LastUser;
 import madsattendancetm.gui.model.Model;
 
 
