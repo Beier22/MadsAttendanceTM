@@ -4,26 +4,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 15-02-2019, 15:18:59
+    Created on : 21-02-2019, 12:43:12
     Author     : mads_
 */
-#btnInfo{
-    -fx-background-color: #DDDDDD;
-    -fx-border-width: 1;
-    -fx-border-color: black;
-}
-
-#btnInfo:focused{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-border-color: blue;
-}
-
-#btnInfo:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-border-color: blue;
-}
 
 #btnBack{
     -fx-background-color: #DDDDDD;

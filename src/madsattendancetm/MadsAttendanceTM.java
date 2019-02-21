@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -29,8 +28,10 @@ public class MadsAttendanceTM extends Application {
         
         Image logo = new Image("/madsattendancetm/gui/images/Icon.png");
         stage.getIcons().add(logo);
-        stage.setMinHeight(400);
-        stage.setMinWidth(400);
+        stage.setHeight(600);
+        stage.setWidth(800);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
         
         stage.setScene(scene);
         stage.show();

@@ -3,13 +3,7 @@ package madsattendancetm.gui.model;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import madsattendancetm.be.User;
-import madsattendancetm.bll.IManager;
 import madsattendancetm.bll.Manager;
 import madsattendancetm.dal.UserDAO;
 

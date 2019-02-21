@@ -9,31 +9,26 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
 
 
@@ -56,6 +51,24 @@ public class LoginWindowController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(LoginWindowController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        txtEmail.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.ENTER)
+                    txtPassword.requestFocus();
+            }
+            
+        });
+        
+        txtPassword.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.ENTER)
+                    btnLogin.fire();
+            }
+            
+        });
 
     }    
     
@@ -78,12 +91,16 @@ public class LoginWindowController implements Initializable {
                 Stage currentStage = (Stage) btnLogin.getScene().getWindow();
                 currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));*/
                 
-                Stage st = (Stage) btnLogin.getScene().getWindow();
-                st.close();
-                Stage stage = new Stage();
+                //Stage st = (Stage) btnLogin.getScene().getWindow();
+                //st.close();
+                Stage stage = (Stage) btnLogin.getScene().getWindow();//new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
+                stage.setHeight(stage.getHeight());
+                stage.setWidth(stage.getWidth());
+                stage.setMinHeight(600);
+                stage.setMinWidth(800);
                 stage.setScene(new Scene(loader.load()));
-                stage.show();
+                //stage.show();
             }
             else if ((model.teacherLogon(txtEmail.getText(), txtPassword.getText()))==1)
             {
@@ -91,12 +108,16 @@ public class LoginWindowController implements Initializable {
                 byte[] strToBytes = txtEmail.getText().getBytes();
                 Files.write(file.toPath(), strToBytes);
                 
-                Stage st = (Stage) btnLogin.getScene().getWindow();
-                st.close();
-                Stage stage = new Stage();
+                //Stage st = (Stage) btnLogin.getScene().getWindow();
+                //st.close();
+                Stage stage = (Stage) btnLogin.getScene().getWindow(); //new Stage();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/madsattendancetm/gui/view/TeacherView.fxml"));
                 stage.setScene(new Scene(loader.load()));
-                stage.show();
+                stage.setHeight(stage.getHeight());
+                stage.setWidth(stage.getWidth());
+                stage.setMinHeight(600);
+                stage.setMinWidth(800);
+                //stage.show();
             }
             else
             {
