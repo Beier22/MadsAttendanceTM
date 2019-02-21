@@ -8,7 +8,10 @@ package madsattendancetm.gui.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -19,6 +22,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,6 +33,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import madsattendancetm.be.LastUser;
 import madsattendancetm.gui.model.Model;
 
 
@@ -42,6 +47,10 @@ public class LoginWindowController implements Initializable {
     @FXML private Text txt;
     
     private File file = new File("..\\madsattendancetm\\currentuser.txt");
+    @FXML
+    private JFXToggleButton rememberMe;
+    
+    private Preferences pref = Preferences.userNodeForPackage(LoginWindowController.class);
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,7 +78,13 @@ public class LoginWindowController implements Initializable {
             }
             
         });
-
+           
+        if(pref.getBoolean("Remember", false)){
+            txtEmail.setText(pref.get("Email", null));
+            txtPassword.setText(pref.get("Password", null));
+            rememberMe.setSelected(true);
+        }
+        
     }    
     
     private String date() {
@@ -123,5 +138,15 @@ public class LoginWindowController implements Initializable {
             {
                 txt.setText("Invalid username or password");
             }
+            
+            if(rememberMe.isSelected()){
+                pref.put("Email", txtEmail.getText());
+                pref.put("Password", txtPassword.getText());
+                pref.putBoolean("Remember", true);
+            } else {
+                pref.putBoolean("Remember", false);
+            }
+            
     }
 }
+    

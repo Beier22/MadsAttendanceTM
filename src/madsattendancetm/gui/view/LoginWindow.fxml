@@ -44,7 +44,7 @@
                         </StackPane>
                         <StackPane alignment="CENTER_RIGHT" maxHeight="60.0" prefHeight="60.0" prefWidth="200.0">
                            <children>
-                              <JFXToggleButton text=" " toggleColor="WHITE" toggleLineColor="#4b87ff" />
+                              <JFXToggleButton fx:id="rememberMe" text=" " toggleColor="WHITE" toggleLineColor="#4b87ff" />
                            </children>
                         </StackPane>
                      </children>
