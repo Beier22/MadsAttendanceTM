@@ -11,26 +11,38 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
 
 /**
@@ -58,11 +70,11 @@ public class TeacherViewController implements Initializable {
         menu.setValue("Class attendance");
         
         
-        
         if(menu.getSelectionModel().isSelected(0))
         {
             setValues(date());
         }
+
         
         Date date = new Date();
         Calendar c = Calendar.getInstance();
@@ -70,24 +82,70 @@ public class TeacherViewController implements Initializable {
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         System.out.println(dayOfWeek-1);
         
-                ArrayList<Integer> array = new ArrayList<>();
-        Map<String, String> map = new HashMap<>();
-        array.add(3);
-        array.add(4);
-        String m = array.toString();
-        String n = "rhello";
-        map.put(n, m);
-        System.out.println(map);
         
         
     }
     
+    private void studentSummary()
+    {
+        /*
+        lstStudents.getItems().clear();
+        ObservableList<User> obsList = FXCollections.observableArrayList();
+        List<User> allUsers = new ArrayList<>();
+        try {
+            allUsers = model.getAllUsers();
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        */
+        
+    }
+    
+    private void summarizedAttendance()
+    {
+        lstStudents.getItems().clear();
+        
+        HashMap<String, Integer> map = model.summarizedAttendance();
+        ObservableList<String> showList = FXCollections.observableArrayList();
+ 
+        List<Map.Entry<String, Integer> > list = 
+               new LinkedList<Map.Entry<String, Integer> >(map.entrySet()); 
+  
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() { 
+            public int compare(Map.Entry<String, Integer> o1,  
+                               Map.Entry<String, Integer> o2) 
+            { 
+                return (o1.getValue()).compareTo(o2.getValue()); 
+            } 
+        }); 
+
+        HashMap<String, Integer> sortedMap = new LinkedHashMap<String, Integer>(); 
+        for (Map.Entry<String, Integer> aa : list) { 
+            sortedMap.put(aa.getKey(), aa.getValue()); 
+        } 
+
+        List<String> students = new ArrayList<>(sortedMap.keySet());
+        List<Integer> attendance = new ArrayList<>(sortedMap.values());
+        
+        Collections.reverse(students);
+        Collections.reverse(attendance);
+        
+        for (int i = 0; i<students.size(); i++) {
+            showList.add(students.get(i)+"       "+attendance.get(i));
+        }
+        lstStudents.getItems().add("Summarized attendance ranked from highest absence");
+        lstStudents.getItems().addAll(showList);
+
+    }
+    
 
     private void setValues(String date) {
+        lstStudents.getItems().clear();
         HashMap<String, Integer> yada = model.att(date);
         
-        List<String> students = new ArrayList<String>(yada.keySet());
-        List<Integer> attend = new ArrayList<Integer>(yada.values());
+        List<String> students = new ArrayList<>(yada.keySet());
+        List<Integer> attend = new ArrayList<>(yada.values());
         
         ObservableList<String> obsList = FXCollections.observableArrayList();
         for (int i = 0; i<students.size(); i++) 
@@ -125,13 +183,14 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void handleBtnMoreInfo(ActionEvent event) {
+        System.out.println(model.studentSummary("alex@uldahl.dk"));
+        
     }
 
     @FXML
     private void pickDate(ActionEvent event) {
         if(menu.getSelectionModel().isSelected(0))
         {
-            lstStudents.getItems().clear();
             setValues(datePicker.getValue().toString());
         }
     }
@@ -141,6 +200,14 @@ public class TeacherViewController implements Initializable {
         if(menu.getSelectionModel().isSelected(0))
         {
             setValues(date());
+        }
+        else if(menu.getSelectionModel().isSelected(1))
+        {
+            summarizedAttendance();
+        }
+        else if(menu.getSelectionModel().isSelected(2))
+        {
+            studentSummary();
         }
         else
         {

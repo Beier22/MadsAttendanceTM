@@ -52,5 +52,14 @@ public class Model {
     public HashMap att(String date) {
         return dao.att(date);
     }
+    
+    public HashMap summarizedAttendance() {
+        return dao.summarizedAttendance();
+    }
+    
+    public List<Integer> studentSummary(String email)
+    {
+        return dao.studentSummary(email);
+    }
 
 }

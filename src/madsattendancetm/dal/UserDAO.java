@@ -8,7 +8,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -183,15 +188,81 @@ public class UserDAO {
     
     public HashMap summarizedAttendance()
     {
-        ArrayList<Integer> array = new ArrayList<>();
-        Map<String, String> map = new HashMap<>();
-        array.add(3);
-        array.add(4);
-        String m = array.toString();
-        String n = "rhello";
-        map.put(n, m);
-        System.out.println(map);
+        Map<String, Integer> map = new HashMap<>();
+        
+        try (Connection con = ds.getConnection()) 
+        {
+            int x = 0;
+            //ArrayList<Integer> array = new ArrayList<>();
+            //String email;
+            //String arrayString;
+            //String sql = "SELECT DISTINCT [dbo].[devAttendance].email, sum([dbo].[devAttendance].attendance) AS a, sum([dbo].[devAttendance].att) AS e FROM [dbo].devAttendance GROUP BY [dbo].[devAttendance].email ORDER BY e DESC";
+            String sql = "SELECT DISTINCT [dbo].[devAttendance].email, sum([dbo].[devAttendance].att) AS e FROM [dbo].devAttendance GROUP BY [dbo].[devAttendance].email ORDER BY e DESC";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()) {
+                //email = rs.getString(1);
+                //array.add(rs.getInt(3));
+                //array.add(rs.getInt(3));
+                //arrayString = array.toString();
+                map.put(rs.getString(1), rs.getInt(2));
+                //array.clear();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return (HashMap) map;
+    }
+    
+    public List<Integer> studentSummary(String email) {
+        List<Integer> list = new ArrayList<>();
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT TOP (1000) [date] ,[attendance] FROM [alexAttendance].[dbo].[DateAttendance] WHERE email = '"+email+"'";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar t = Calendar.getInstance();
+
+            int a = 0, b = 0, c = 0, d = 0, e = 0, f = 0, g = 0;
+            
+            while (rs.next()) 
+            { 
+                if (rs.getInt(2) == 0) 
+                {
+                    Date newDate = df.parse(rs.getString(1));
+                    t.setTime(newDate);
+                    int k = t.get(Calendar.DAY_OF_WEEK);
+                    if (k == 1)
+                        a++;
+                    else if (k == 2)
+                        b++;
+                    else if (k == 3)
+                        c++;
+                    else if (k == 4)
+                        d++;
+                    else if (k == 5)
+                        e++;
+                    else if (k == 6)
+                        f++;
+                    else if (k == 7)
+                        g++;
+                }
+            }
+                list.add(a);
+                list.add(b);
+                list.add(c);
+                list.add(d);
+                list.add(e);
+                list.add(f);
+                list.add(g);
+            }   catch (SQLException ex) 
+            {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
     
 }
