@@ -42,6 +42,7 @@ public class StudentViewController implements Initializable {
     @FXML private Button btnBack;
     @FXML private Text txtWelcome;
     @FXML private ListView<String> listView;
+    @FXML private Button btnRequest;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -41,6 +41,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import madsattendancetm.be.User;
 import madsattendancetm.gui.model.Model;
@@ -75,31 +76,25 @@ public class TeacherViewController implements Initializable {
             setValues(date());
         }
 
-        
-        Date date = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        System.out.println(dayOfWeek-1);
-        
-        
-        
     }
     
     private void studentSummary()
     {
-        /*
         lstStudents.getItems().clear();
-        ObservableList<User> obsList = FXCollections.observableArrayList();
-        List<User> allUsers = new ArrayList<>();
         try {
-            allUsers = model.getAllUsers();
+            ObservableList<String> obsList = FXCollections.observableArrayList();
+            List<User> userList;
+            userList = model.getAllUsers();
+            for (User user : userList) {
+                if (user.getIsTeacher()==0)
+                {
+                    obsList.add(user.getEmail());
+                }
+            }
+            lstStudents.getItems().addAll(obsList);
         } catch (SQLException ex) {
             Logger.getLogger(TeacherViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        */
-        
     }
     
     private void summarizedAttendance()
@@ -171,20 +166,49 @@ public class TeacherViewController implements Initializable {
     
     @FXML
     private void handleBtnBack(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/LoginWindow.fxml"));
-            Scene currentScene = btnBack.getScene();
-            Stage currentStage = (Stage) btnBack.getScene().getWindow();
-            currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
-        } catch (IOException ex) {
-            Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+        if (menu.getSelectionModel().isSelected(2))
+        {
+            studentSummary();
+        }
+        else
+        {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/madsattendancetm/gui/view/LoginWindow.fxml"));
+                Scene currentScene = btnBack.getScene();
+                Stage currentStage = (Stage) btnBack.getScene().getWindow();
+                currentStage.setScene(new Scene(root, currentScene.getWidth(), currentScene.getHeight()));
+            } catch (IOException ex) {
+                Logger.getLogger(StudentViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     @FXML
-    private void handleBtnMoreInfo(ActionEvent event) {
-        System.out.println(model.studentSummary("alex@uldahl.dk"));
-        
+    private void handleMoreInfo(MouseEvent event) {
+        if (menu.getSelectionModel().isSelected(2))
+        {
+            String weekday = null;
+            String student = lstStudents.getSelectionModel().getSelectedItem();
+            lstStudents.getItems().clear();
+            ObservableList<String> obsList = FXCollections.observableArrayList();
+            List<Integer> list = model.studentSummary(student);
+
+            for (int i = 0; i<6; i++)
+            {
+                if (i == 0) weekday = "Sunday";
+                if (i == 1) weekday = "Monday";
+                if (i == 2) weekday = "Tuesday";
+                if (i == 3) weekday = "Wednesday";
+                if (i == 4) weekday = "Thursday";
+                if (i == 5) weekday = "Friday";
+                if (i == 6) weekday = "Saturday";
+
+
+                obsList.add(weekday+"       "+list.get(i));
+            }
+            lstStudents.getItems().add("Total absence for each week day");
+            lstStudents.getItems().addAll(obsList);
+        }
     }
 
     @FXML
@@ -214,5 +238,7 @@ public class TeacherViewController implements Initializable {
             lstStudents.getItems().clear();
         }
     }
+
+
     
 }
