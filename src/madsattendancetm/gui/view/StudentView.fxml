@@ -43,14 +43,14 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="67.0">
+                              <StackPane alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="10000.0">
                                  <children>
-                                    <Button id="btnBack" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnBack" prefHeight="27.0" prefWidth="44.0" text="Back" />
+                                    <Button id="btnBack" fx:id="btnBack" mnemonicParsing="false" onAction="#handleBtnBack" text="Back" />
                                  </children>
                               </StackPane>
-                              <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="138.0">
+                              <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="10000.0">
                                  <children>
-                                    <Button id="btnRequest" fx:id="btnRequest" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#btnHandleRequest" prefHeight="27.0" prefWidth="107.0" text="Request change" />
+                                    <Button id="btnRequest" fx:id="btnRequest" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#btnHandleRequest" text="Request change" />
                                  </children>
                               </StackPane>
                            </children>

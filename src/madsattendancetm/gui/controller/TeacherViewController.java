@@ -9,8 +9,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -63,6 +65,8 @@ public class TeacherViewController implements Initializable {
     @FXML private JFXComboBox<String> pickTeacher;
     @FXML private JFXComboBox<String> menu;
     @FXML private JFXDatePicker datePicker;
+    
+    private File file = new File("..\\madsattendancetm\\currentuser.txt");
     
     @Override
     public void initialize(URL url, ResourceBundle rb){   
@@ -195,7 +199,7 @@ public class TeacherViewController implements Initializable {
     }
 
     @FXML
-    private void handleMoreInfo(MouseEvent event) {
+    private void handleMoreInfo(MouseEvent event) throws IOException, SQLException {
         if (menu.getSelectionModel().isSelected(2))
         {
             String weekday = null;
@@ -219,6 +223,19 @@ public class TeacherViewController implements Initializable {
             }
             lstStudents.getItems().add("Total absence for each week day");
             lstStudents.getItems().addAll(obsList);
+        }else if (menu.getSelectionModel().isSelected(0))
+        {
+            byte[] strToBytes = lstStudents.getSelectionModel().getSelectedItem().getBytes();
+            Files.write(file.toPath(), strToBytes);
+            model.login(lstStudents.getSelectionModel().getSelectedItem(), date());
+            
+            Stage stage = (Stage) btnBack.getScene().getWindow();//new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/madsattendancetm/gui/view/StudentView.fxml"));
+            stage.setHeight(stage.getHeight());
+            stage.setWidth(stage.getWidth());
+            stage.setMinHeight(600);
+            stage.setMinWidth(800);
+            stage.setScene(new Scene(loader.load()));
         }
         
         
