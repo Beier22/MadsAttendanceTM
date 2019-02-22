@@ -81,7 +81,7 @@ public class TeacherViewController implements Initializable {
     private void studentSummary()
     {
         lstStudents.getItems().clear();
-        btnMoreInfo.setText("");
+        btnMoreInfo.setText("More");
         try {
             ObservableList<String> obsList = FXCollections.observableArrayList();
             List<User> userList;
@@ -101,7 +101,7 @@ public class TeacherViewController implements Initializable {
     private void summarizedAttendance()
     {
         lstStudents.getItems().clear();
-        btnMoreInfo.setText("");
+        btnMoreInfo.setText("More");
         HashMap<String, Integer> map = model.summarizedAttendance();
         ObservableList<String> showList = FXCollections.observableArrayList();
  
@@ -138,7 +138,7 @@ public class TeacherViewController implements Initializable {
 
     private void setValues(String date) {
         lstStudents.getItems().clear();
-        btnMoreInfo.setText("");
+        btnMoreInfo.setText("More");
         HashMap<String, Integer> yada = model.att(date);
         
         List<String> students = new ArrayList<>(yada.keySet());
@@ -254,6 +254,14 @@ public class TeacherViewController implements Initializable {
         else
         {
             lstStudents.getItems().clear();
+        }
+    }
+
+    @FXML
+    private void btnMore(ActionEvent event) {
+        if(menu.getSelectionModel().isSelected(3))
+        {
+            lstStudents.getItems().remove(lstStudents.getSelectionModel().getSelectedItem());
         }
     }
 

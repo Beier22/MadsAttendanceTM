@@ -96,6 +96,7 @@ public class StudentViewController implements Initializable {
     @FXML
     private void btnHandleRequest(ActionEvent event) {
         model.request(email, listView.getSelectionModel().getSelectedItem());
+        txtWelcome.setText("Request made");
         
     }
 }
