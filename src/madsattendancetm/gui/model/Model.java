@@ -61,5 +61,16 @@ public class Model {
     {
         return dao.studentSummary(email);
     }
+    
+    public void request(String email, String date)
+    {
+        dao.request(email, date);
+    }
+    
+    public List<String> studentRequests()
+    {
+        return dao.studentRequests();
+    }
+
 
 }

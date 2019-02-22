@@ -81,6 +81,7 @@ public class TeacherViewController implements Initializable {
     private void studentSummary()
     {
         lstStudents.getItems().clear();
+        btnMoreInfo.setText("");
         try {
             ObservableList<String> obsList = FXCollections.observableArrayList();
             List<User> userList;
@@ -100,7 +101,7 @@ public class TeacherViewController implements Initializable {
     private void summarizedAttendance()
     {
         lstStudents.getItems().clear();
-        
+        btnMoreInfo.setText("");
         HashMap<String, Integer> map = model.summarizedAttendance();
         ObservableList<String> showList = FXCollections.observableArrayList();
  
@@ -137,6 +138,7 @@ public class TeacherViewController implements Initializable {
 
     private void setValues(String date) {
         lstStudents.getItems().clear();
+        btnMoreInfo.setText("");
         HashMap<String, Integer> yada = model.att(date);
         
         List<String> students = new ArrayList<>(yada.keySet());
@@ -153,6 +155,15 @@ public class TeacherViewController implements Initializable {
             obsList.add(students.get(i)+"   ATTENDANCE:    "+st);
         }
 
+        lstStudents.getItems().addAll(obsList);
+    }
+    
+    private void studentRequests()
+    {
+        lstStudents.getItems().clear();
+        btnMoreInfo.setText("Accomodate request");
+        ObservableList<String> obsList = FXCollections.observableArrayList();
+        obsList.addAll(model.studentRequests());
         lstStudents.getItems().addAll(obsList);
     }
     
@@ -209,6 +220,9 @@ public class TeacherViewController implements Initializable {
             lstStudents.getItems().add("Total absence for each week day");
             lstStudents.getItems().addAll(obsList);
         }
+        
+        
+        
     }
 
     @FXML
@@ -232,6 +246,10 @@ public class TeacherViewController implements Initializable {
         else if(menu.getSelectionModel().isSelected(2))
         {
             studentSummary();
+        }
+        else if(menu.getSelectionModel().isSelected(3))
+        {
+            studentRequests();
         }
         else
         {

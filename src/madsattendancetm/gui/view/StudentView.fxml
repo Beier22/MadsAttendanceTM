@@ -50,7 +50,7 @@
                               </StackPane>
                               <StackPane alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="10000.0">
                                  <children>
-                                    <Button id="btnRequest" fx:id="btnRequest" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Button" />
+                                    <Button id="btnRequest" fx:id="btnRequest" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#btnHandleRequest" text="Button" />
                                  </children>
                               </StackPane>
                            </children>

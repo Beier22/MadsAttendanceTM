@@ -3,6 +3,7 @@ package madsattendancetm.dal;
 
 import madsattendancetm.be.User;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -265,4 +266,37 @@ public class UserDAO {
         return list;
     }
     
+    public void request(String email, String date)
+    {
+        String sql = "INSERT INTO [alexAttendance].dbo.Requests (email, date) VALUES (?, ?)";
+        try (Connection con = ds.getConnection()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, date);
+            ps.addBatch();
+            ps.executeBatch();
+        } catch (SQLException ex) 
+        {
+
+        }
+    }
+    
+    public List<String> studentRequests()
+    {
+        List<String> list = new ArrayList<>();
+        try (Connection con = ds.getConnection()) {
+            String sqlStatement = "SELECT * FROM [alexAttendance].[dbo].[Requests]";
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while(rs.next())
+            {
+                list.add(rs.getString(1)+"      DATE:   "+rs.getString(2));
+            }
+    }   catch (SQLServerException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }
